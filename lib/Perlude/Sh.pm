@@ -1,7 +1,6 @@
 package Perlude::Sh;
 use Modern::Perl;
 use Perlude;
-use File::Slurp ();
 use parent 'Exporter';
 our @EXPORT_OK   = qw< sh ls cat zcat csv cat_with read_file >;
 our %EXPORT_TAGS = ( all => \@EXPORT_OK );
@@ -40,8 +39,14 @@ sh, ls, cat, zcat, csv to be documented. but a simple example
 =cut
 
 sub read_file {
-    File::Slurp::read_file
-    @_ ? @_ : $_
+    # TODO: is it worth ? 
+    # use File::Slurp ();
+    # File::Slurp::read_file
+    open my $fh
+    , (@_ ? $_[0] : $_)
+        or die;
+    local $/;
+    <$fh>;
 }
 
 sub sh { lines "@_|" }
