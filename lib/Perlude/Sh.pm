@@ -6,6 +6,10 @@ our @EXPORT_OK   = qw< sh ls cat zcat csv >;
 our %EXPORT_TAGS = ( all => \@EXPORT_OK );
 # ABSTRACT: just forget about sed/awk based shell scripts. 
 
+=head1 WARNINGS
+
+no test, no warranty, API can change. don't push in production
+
 =head1 SYNOPSIS
 
 Perlude::Sh
