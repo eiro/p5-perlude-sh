@@ -2,7 +2,7 @@ package Perlude::Sh;
 use Modern::Perl;
 use Perlude;
 use parent 'Exporter';
-our @EXPORT_OK   = qw< sh ls cat zcat csv cat_with read_file >;
+our @EXPORT_OK   = qw< sh ls cat zcat csv cat_with read_file from_dir >;
 our %EXPORT_TAGS = ( all => \@EXPORT_OK );
 our $VERSION = '0.1';
 
@@ -37,6 +37,17 @@ sh, ls, cat, zcat, csv to be documented. but a simple example
     * load modules on demand ? is it possible ? 
 
 =cut
+
+use Cwd;
+sub from_dir {
+    my $pwd  = getcwd;
+    my ( $dir, $sub ) = @_;
+    chdir $dir or die "cd to $dir: $!";
+    # TODO: think! is &$sub a good idea ? 
+    my @r = $sub->();
+    chdir $pwd or die "cd back to $pwd: $!";
+    @r;
+}
 
 sub read_file {
     # TODO: is it worth ? 
