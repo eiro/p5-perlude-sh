@@ -4,6 +4,8 @@ use Perlude;
 use parent 'Exporter';
 our @EXPORT_OK   = qw< sh ls cat zcat csv >;
 our %EXPORT_TAGS = ( all => \@EXPORT_OK );
+our $VERSION = '0.1';
+
 # ABSTRACT: just forget about sed/awk based shell scripts. 
 
 =head1 WARNINGS
