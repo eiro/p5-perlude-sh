@@ -2,7 +2,7 @@ package Perlude::Sh;
 use Modern::Perl;
 use Perlude;
 use parent 'Exporter';
-our @EXPORT_OK   = qw< sh ls cat zcat csv >;
+our @EXPORT_OK   = qw< sh ls cat zcat csv  cat_with >;
 our %EXPORT_TAGS = ( all => \@EXPORT_OK );
 our $VERSION = '0.1';
 
@@ -54,6 +54,11 @@ sub cat {
         apply { lines $_ }
         filter { -f $_ }
         ls shift;
+}
+
+sub cat_with (&$) {
+    my ( $streamer, $glob ) = @_;
+    concatM { $streamer->() } ls $glob
 }
 
 sub zcat {
