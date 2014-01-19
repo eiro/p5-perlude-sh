@@ -63,7 +63,7 @@ sub read_file {
 sub sh { lines "@_|" }
 
 sub ls {
-    my $pattern = shift;
+    my $pattern = shift || '*';
     sub {
         while (my $file = glob $pattern) { return $file }
         ()
