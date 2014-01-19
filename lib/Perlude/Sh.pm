@@ -1,8 +1,9 @@
 package Perlude::Sh;
+use YAML;
 use Modern::Perl;
 use Perlude;
 use parent 'Exporter';
-our @EXPORT_OK   = qw< sh ls cat zcat csv cat_with read_file from_dir >;
+our @EXPORT_OK   = qw< sh ls cat zcat csv cat_with read_file from_dir ldapsearch >;
 our %EXPORT_TAGS = ( all => \@EXPORT_OK );
 our $VERSION = '0.1';
 
@@ -107,5 +108,14 @@ sub csv {
 	()
     }
 }
+
+sub ldapsearch {
+    my $ldap = shift;
+    my $rs = $ldap->search( @_ );
+    say join ',', map $rs->$_, qw< code count >;
+    my @entries = $rs->entries;
+    sub { (shift @entries) // () }
+}
+
 
 1;
